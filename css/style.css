@@ -51,6 +51,12 @@
     text-align: justify;
 }
 
+.inputTitle{
+    width: 100%;
+    padding: 2em;
+    autofocus: 
+}
+
 /*     SIDE-MENU     */
 
 .side-menu{
