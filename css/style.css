@@ -1,0 +1,68 @@
+/*     GENERAL     */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Open+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --header: 'Bodoni Moda', serif;
+    --body: 'Open Sans', sans-serif;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+    grid-gap: 2em;
+}
+
+.main-header{
+    grid-column: 1 / 13;
+    height: 500px;
+    background-color: lightblue;
+    grid-row: 1;
+}
+
+/*     BLOG-POSTS     */
+
+.posts{
+    grid-column: 2 / 9;
+    grid-row: 2;
+}
+
+.blog-post{
+    padding: 2em;
+}
+
+.post-header{
+    font-family: var(--header);
+    text-align: center;
+    margin-bottom: 1.2em;
+    font-size: 24px;
+}
+
+.blog-post p{
+    font-family: var(--body);
+    line-height: 1.5em;
+    font-size: 16px;
+    text-align: justify;
+}
+
+/*     SIDE-MENU     */
+
+.side-menu{
+    grid-column: 10 / 12;
+    grid-row: 2;
+    min-height: 500px;
+    background-color: lightblue;
+}
+
+.main-footer{
+    grid-column: 1 / 13;
+    grid-row: 3;
+    height: 200px;
+    background-color: lightblue;
+}
