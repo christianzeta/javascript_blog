@@ -60,9 +60,14 @@
     });
 
     delBtn.addEventListener('click', () => {
-        blogsCountInput.value = --blogsCount;
-        main.removeChild(main.children[0]);
-        updatePostList();
+        if(blogsCount >= 1){
+            blogsCountInput.value = --blogsCount;
+            main.removeChild(main.children[0]);
+            updatePostList();
+        } else{
+            console.log('No posts to be deleted');
+        }
+       
     });
 
     blogsCountInput.addEventListener('keyup', (e) => {
@@ -80,10 +85,12 @@
         if(option != ''){
              console.log('Too many..');
         } else{
+            let id = clicked.getAttribute('id');
             option = 'title';
             let input = document.createElement('input');
             input.placeholder = 'Skriv minst ett tecken..';
             input.classList.add('inputTitle');
+            input.setAttribute('id', id);
             clicked.replaceWith(input);
         }
     }
@@ -107,6 +114,7 @@
             let title = document.createElement('h2');
             title.classList.add('post-title');
             title.innerHTML = input.value;
+            title.setAttribute('id', input.getAttribute('id'));
             input.replaceWith(title);
             option = '';
             updatePostList()
