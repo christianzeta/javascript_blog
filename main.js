@@ -10,37 +10,108 @@
 */ 
 
 "use strict";
+    let option = '';
+    let postArray = [];
+    let main = document.querySelector('main');
+    let addBtn = document.querySelector('button');
+    let blogsCountInput = document.querySelector('#blogs-count-input');
+    let blogsCount = 0;
+    blogsCountInput.value = blogsCount;
 
+    function createPost(){
+        let article = document.createElement('article');
+        article.classList.add('blog-post');
+        let header = document.createElement('header');
+        header.classList.add('post-header');
+        let h2 = document.createElement('h2');
+        h2.classList.add('post-title');
+        h2.innerHTML = 'Titel';
+        header.appendChild(h2);
+        article.appendChild(header);
+        let p = document.createElement('p');
+        p.classList.add('post-body');
+        p.innerHTML = 'Här kan du skriva ditt blogginlägg';
+        article.appendChild(p);
+        return article;
+    }
 
-    let postTitles = document.querySelectorAll('.post-title');
-    let clicks = 0;
+    addBtn.addEventListener('click', () => {
+        main.appendChild(createPost());
+        blogsCountInput.value = ++blogsCount;
+    });
+
+    let delBtn = document.querySelector('#delete');
+    delBtn.addEventListener('click', () => {
+        blogsCountInput.value = --blogsCount;
+        main.removeChild(main.children[0]);
+    });
+
+    blogsCountInput.addEventListener('keyup', (e) => {
+        if(e.keyCode === 13){
+            main.innerHTML = '';
+            blogsCount = blogsCountInput.value;
+            for(let i = 0; i < blogsCount; i++){
+                main.appendChild(createPost());
+            }
+        }
+    });
+
+    function addTitle(clicked){
+        if(option != ''){
+             console.log('Too many..');
+        } else{
+            option = 'title';
+            let input = document.createElement('input');
+            input.placeholder = 'Skriv minst ett tecken..';
+            input.classList.add('inputTitle');
+            clicked.replaceWith(input);
+        }
+    }
+
+    function addBody(clicked){
+        if(option != ''){
+            console.log('Too many');
+        } else{
+            option = 'body';
+            let textarea = document.createElement('textarea');
+            textarea.placeholder = 'Skriv minst ett tecken..';
+            textarea.classList.add('inputBody');
+            clicked.replaceWith(textarea);
+        }
+    }
+
+    function submitText(input, textarea){
+        if(input === null && textarea === null){
+            console.log('nothing here')           
+        } else if(option === 'title' && input.value != ''){
+            let title = document.createElement('h2');
+            title.classList.add('post-title');
+            title.innerHTML = input.value;
+            input.replaceWith(title);
+            option = '';
+        } else if(option === 'body' && textarea.value != ''){
+            let body = document.createElement('p');
+            body.classList.add('post-body');
+            body.innerHTML = textarea.value;
+            textarea.replaceWith(body);
+            option = '';
+        }
+    }
 
     document.addEventListener('click', (e) =>{
+        let input = document.querySelector('.inputTitle');
+        let textarea = document.querySelector('textarea');
         let clicked = e.target;
-        let input = document.querySelector('input');
-        let isActive = input === document.activeElement;
-        if(clicks >= 1){
-            console.log('You cant click two at a time...');
-        }
-        else{
-            if(clicked.className == 'post-title'){
-                clicks++;
-                let input = document.createElement('input');
-                input.placeholder = 'Skriv minst ett tecken..';
-                input.classList.add('inputTitle');
-                input.autofocus = true;
-                clicked.replaceWith(input);
-            }
-        }
-        if(isActive || input != null & clicked.className != 'inputTitle' && clicked.className != 'post-title'){
-            if(input.value === ''){
-                input.autofocus = true; 
-            } else{
-                clicks--;
-                let title = document.createElement('h2');
-                title.classList.add('post-title');
-                title.innerHTML = input.value;
-                input.replaceWith(title);
-            }
+
+        switch(clicked.className){
+            case 'post-title':
+                addTitle(clicked);
+                break;
+             case 'post-body':
+                 addBody(clicked);
+                 break;
+              default:
+                  submitText(input, textarea);
+                  break;
         }
     });

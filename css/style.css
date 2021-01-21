@@ -54,7 +54,13 @@
 .inputTitle{
     width: 100%;
     padding: 2em;
-    autofocus: 
+}
+
+.inputBody{
+    width: 100%;
+    padding: 2em;
+    min-height: 300px;
+    resize: none;
 }
 
 /*     SIDE-MENU     */
