@@ -10,21 +10,26 @@
 */ 
 
 "use strict";
+    let postId = 0;
     let option = '';
     let postArray = [];
     let main = document.querySelector('main');
-    let addBtn = document.querySelector('button');
+    let addBtn = document.querySelector('#add');
+    let delBtn = document.querySelector('#delete');
     let blogsCountInput = document.querySelector('#blogs-count-input');
+    let postList = document.querySelector('#post-links');
     let blogsCount = 0;
     blogsCountInput.value = blogsCount;
 
     function createPost(){
+        postId++;
         let article = document.createElement('article');
         article.classList.add('blog-post');
         let header = document.createElement('header');
         header.classList.add('post-header');
         let h2 = document.createElement('h2');
         h2.classList.add('post-title');
+        h2.setAttribute('id', postId);
         h2.innerHTML = 'Titel';
         header.appendChild(h2);
         article.appendChild(header);
@@ -34,16 +39,30 @@
         article.appendChild(p);
         return article;
     }
+    
+    function updatePostList(){
+        postList.innerHTML = '';
+        let titles = document.querySelectorAll('.post-title');
+        titles.forEach((post) => {
+            let listItem = document.createElement('li');
+            let listLink = document.createElement('a');
+            listLink.setAttribute('href', '#' + post.getAttribute('id'));
+            listLink.innerHTML = post.innerHTML;
+            listItem.appendChild(listLink);
+            postList.appendChild(listItem);
+        });
+    }
 
     addBtn.addEventListener('click', () => {
-        main.appendChild(createPost());
+        main.prepend(createPost());
         blogsCountInput.value = ++blogsCount;
+        updatePostList();
     });
 
-    let delBtn = document.querySelector('#delete');
     delBtn.addEventListener('click', () => {
         blogsCountInput.value = --blogsCount;
         main.removeChild(main.children[0]);
+        updatePostList();
     });
 
     blogsCountInput.addEventListener('keyup', (e) => {
@@ -53,6 +72,7 @@
             for(let i = 0; i < blogsCount; i++){
                 main.appendChild(createPost());
             }
+            updatePostList();
         }
     });
 
@@ -89,6 +109,7 @@
             title.innerHTML = input.value;
             input.replaceWith(title);
             option = '';
+            updatePostList()
         } else if(option === 'body' && textarea.value != ''){
             let body = document.createElement('p');
             body.classList.add('post-body');

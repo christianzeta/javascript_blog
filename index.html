@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Blog Site</title>
 </head>
 <body>
     <div class="container">
         <header class="main-header" id="main-header">
-            <button id="add">New post</button>
-            <input type="text" id="blogs-count-input">
-            <button id="delete">Delete post</button>
+            <h1 id="blog-title">Javascript Blog</h1>
+            <p>How many posts do you want?</p>
+            <section class="flex-section">
+                <i class="fas fa-minus" id="delete"></i>
+                <input type="text" id="blogs-count-input">
+                <i class="fas fa-plus" id="add"></i>            
+            </section>
         </header>
         <main class="posts" id="posts">
             
         </main>
         <aside class="side-menu" id="side-menu">
-
+            <ul id="post-links">
+                
+            </ul>
         </aside>
         <footer class="main-footer" id="main-footer">
 
