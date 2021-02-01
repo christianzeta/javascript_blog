@@ -151,4 +151,9 @@ ul li{
     height: 200px;
     background-color: #ffef3b;
     box-shadow: 0px -2px 10px grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    font-size: 3em;
 }

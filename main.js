@@ -7,6 +7,9 @@
         använde "console.log". Felet var att elementen laddades efter jag försökte nå dem i scriptet så lösningen blev att flytta
         länken till scriptet längst ner i html sidan. Alternativt kan "window.onload" eller "DOMcontentloading" användas.
 
+        Under hela projektet användes console.log för att visa värdet på variabler under körningens gång och för att se vad som sker när
+        något skickas in i en funktion. Genom att testa bitar var för sig kunde jag utesluta vart problemet fanns.
+
 */ 
 
 "use strict";
@@ -21,6 +24,8 @@
     let blogsCount = 0;
     blogsCountInput.value = blogsCount;
 
+    // I den här funktionen skapas en article med alla innehållande element och klasser
+    // och returnerar denna för att kunna skickas in i DOM
     function createPost(){
         postId++;
         let article = document.createElement('article');
@@ -35,11 +40,13 @@
         article.appendChild(header);
         let p = document.createElement('p');
         p.classList.add('post-body');
-        p.innerHTML = 'Här kan du skriva ditt blogginlägg';
+        p.innerHTML = 'Här kan du skriva ditt blogginlägg. När du redigerar ett blogginlägg klickar du först på titeln eller brödtexten, skriver minst ett tecken och klickar sedan utanför eller i samma ruta.';
         article.appendChild(p);
         return article;
     }
     
+    // När denna funktionen kallas så nollställs först alla länkar på sidospalten
+    // Sedan skapas li och a taggar med aktuella titlar och länkar som skickas in i DOM
     function updatePostList(){
         postList.innerHTML = '';
         let titles = document.querySelectorAll('.post-title');
@@ -53,12 +60,16 @@
         });
     }
 
+    // När plus tecknet i headern klickas på så kallas detta event där det skapas en article som sedan skickas in DOM
+    // Sedan uppdateras sidospalten
     addBtn.addEventListener('click', () => {
         main.prepend(createPost());
         blogsCountInput.value = ++blogsCount;
         updatePostList();
     });
 
+    // När minus tecknet i headern klickas på så kallas detta event där det tas bort en article från DOM om det finns minst en article
+    // Sedan uppdateras sidospalten
     delBtn.addEventListener('click', () => {
         if(blogsCount >= 1){
             blogsCountInput.value = --blogsCount;
@@ -70,6 +81,8 @@
        
     });
 
+    // När valfritt antal anges i headern med hjälp av tryck på 'enter' så kallas detta event där det skapas x antal articles som sedan skickas in DOM
+    // Sedan uppdateras sidospalten
     blogsCountInput.addEventListener('keyup', (e) => {
         if(e.keyCode === 13){
             main.innerHTML = '';
