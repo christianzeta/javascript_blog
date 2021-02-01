@@ -94,6 +94,9 @@
         }
     });
 
+    // Denna funtionen körs när en titel har klickats på, då skapas en input
+    // option används för att användaren inte skall kunna klicka på något annat element förren en titel eller brödtext skickats till submittext
+    // option anger även vilken del som kommer att uppdateras
     function addTitle(clicked){
         if(option != ''){
              console.log('Too many..');
@@ -108,6 +111,7 @@
         }
     }
 
+    // Denna funktionen fungerar likadant som den övre, fast för brödtexten och lägger in en textarea
     function addBody(clicked){
         if(option != ''){
             console.log('Too many');
@@ -120,6 +124,8 @@
         }
     }
 
+    // Här kommer DOM att uppdateras om minst ett tecken skrivits in i titeln eller brödtexten
+    // Beroende på värdet på option kommer den delen att uppdateras genom att skapa en nytt element med det nya värdet och läggas in i DOM
     function submitText(input, textarea){
         if(input === null && textarea === null){
             console.log('nothing here')           
@@ -140,6 +146,8 @@
         }
     }
 
+    // Varje gång en användare klickar någonstans på webbplatsen så kollar funtionen vad det är som har klickats på
+    // Är det titel eller brödtext används någon av de funktionerna, är det någon annan del av sidan så uppdateras sidan om det finns nya värden
     document.addEventListener('click', (e) =>{
         let input = document.querySelector('.inputTitle');
         let textarea = document.querySelector('textarea');
